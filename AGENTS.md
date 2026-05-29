@@ -1,4 +1,4 @@
-# AGENTS.md — script-runner-image
+# AGENTS.md — script-runner
 
 ## 项目定位
 
