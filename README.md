@@ -1,4 +1,4 @@
-# script-runner image
+# script-runner
 
 通用 Runner 镜像只封装生命周期，不包含业务程序本体。业务程序通过应用侧脚本下载到 Docker named volume，镜像本身不随业务程序版本变化。
 
