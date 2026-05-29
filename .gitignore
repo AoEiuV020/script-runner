@@ -10,17 +10,6 @@
 *.swo
 *~
 
-# Local env / secrets
-.env
-.env.*
-!.env.example
-
-# Runtime / temporary output
-logs/
-tmp/
-cache/
-*.log
-
 # Docker / build artifacts
 *.tar
 *.tar.gz

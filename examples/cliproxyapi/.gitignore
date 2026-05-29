@@ -1,0 +1,22 @@
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local CLIProxyAPI config may contain API keys, proxy credentials, TLS paths, and other secrets
+config.yaml
+config.*.yaml
+!config.example.yaml
+
+# CLIProxyAPI home may contain account, auth, or runtime state
+.cli-proxy-api/*
+!.cli-proxy-api/.gitkeep
+
+# Runtime output
+logs/
+tmp/
+cache/
+*.log
+
+# macOS metadata
+.DS_Store

@@ -1,0 +1,32 @@
+name: cliproxyapi
+
+services:
+  app:
+    image: aoeiuv020/script-runner:latest
+    container_name: cliproxyapi
+    restart: unless-stopped
+    init: true
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "8317:8317"
+    volumes:
+      # runner 配置目录：同步目录内，只读。入口固定为 /etc/runner/config.env。
+      - ./runner:/etc/runner:ro
+
+      # 业务配置：同步目录内，只读
+      - ./config.yaml:/etc/app/config.yaml:ro
+
+      # CLIProxyAPI 默认家目录：~/.cli-proxy-api。放在配置文件同级目录，便于同步必要账号/授权文件。
+      - ./.cli-proxy-api:/root/.cli-proxy-api
+
+      # 程序本体和版本状态：不进同步目录，持久化在 Docker volume
+      - app-bin:/opt/runner/bin
+
+volumes:
+  app-bin:
+    name: cliproxyapi-bin
+
