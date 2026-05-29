@@ -1,0 +1,30 @@
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+
+# Runtime / temporary output
+logs/
+tmp/
+cache/
+*.log
+
+# Docker / build artifacts
+*.tar
+*.tar.gz
+*.zip
+*.bin
+*.new
+*.pid
