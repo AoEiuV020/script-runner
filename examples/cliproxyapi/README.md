@@ -85,15 +85,16 @@ DOWNLOAD_SCRIPT=scripts/download.sh
 
 ## Docker volume
 
-程序本体和版本状态不保存在示例目录：
+程序本体、版本状态和 CLIProxyAPI 静态资源不保存在示例目录：
 
 ```text
-cliproxyapi-bin -> /opt/runner/bin
+<project>_cliproxyapi-bin -> /opt/runner/bin
+<project>_cliproxyapi-static -> /etc/app/static
 ```
 
-CLIProxyAPI 示例当前没有需要写入 `/var/lib/app` 的业务数据；账号授权文件已经挂载到 `.cli-proxy-api/`，日志默认输出到 stdout。所以不保留 `app-data` 或日志 volume。
+`config/static` 由命名 volume 覆盖，避免大文件写入同步目录。CLIProxyAPI 示例当前没有需要写入 `/var/lib/app` 的业务数据；账号授权文件已经挂载到 `.cli-proxy-api/`，日志默认输出到 stdout。所以不保留 `app-data` 或日志 volume。
 
-`docker compose down` 默认不会删除这个 volume。不要使用 `docker compose down -v`，除非明确要删除已安装程序和版本状态。
+`<project>` 默认取当前目录名，也可以通过 `docker compose -p` 或 `COMPOSE_PROJECT_NAME` 指定。`docker compose down` 默认不会删除这个 volume。不要使用 `docker compose down -v`，除非明确要删除已安装程序和版本状态。
 
 ## 版本检查
 
@@ -154,13 +155,13 @@ docker compose up -d
 检查更新：
 
 ```bash
-docker compose exec app runner update
+docker compose exec cliproxyapi runner update
 ```
 
 临时执行应用命令：
 
 ```bash
-docker compose exec app runner exec -- --help
+docker compose exec cliproxyapi runner exec -- --help
 ```
 
 停止容器但保留 volume：

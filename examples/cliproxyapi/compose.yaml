@@ -1,9 +1,6 @@
-name: cliproxyapi
-
 services:
-  app:
+  cliproxyapi:
     image: aoeiuv020/script-runner:latest
-    container_name: cliproxyapi
     restart: unless-stopped
     init: true
     env_file:
@@ -20,12 +17,15 @@ services:
       # 业务配置目录：同步目录内。配置入口固定为 /etc/app/config.yaml。
       - ./config:/etc/app
 
+      # CLIProxyAPI 静态资源：不进同步目录，持久化在 Docker volume
+      - cliproxyapi-static:/etc/app/static
+
       # CLIProxyAPI 默认家目录：~/.cli-proxy-api。放在示例目录内，便于同步必要账号/授权文件。
       - ./.cli-proxy-api:/root/.cli-proxy-api
 
       # 程序本体和版本状态：不进同步目录，持久化在 Docker volume
-      - app-bin:/opt/runner/bin
+      - cliproxyapi-bin:/opt/runner/bin
 
 volumes:
-  app-bin:
-    name: cliproxyapi-bin
+  cliproxyapi-bin:
+  cliproxyapi-static:
