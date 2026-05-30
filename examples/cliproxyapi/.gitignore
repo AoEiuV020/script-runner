@@ -4,9 +4,12 @@
 !.env.example
 
 # Local CLIProxyAPI config may contain API keys, proxy credentials, TLS paths, and other secrets
-config.yaml
-config.*.yaml
-!config.example.yaml
+config/*
+!config/config.example.yaml
+
+# 放错位置的本地配置仍可能包含密钥；这里只用于防止误提交
+/config.yaml
+/config.*.yaml
 
 # CLIProxyAPI home may contain account, auth, or runtime state
 .cli-proxy-api/*

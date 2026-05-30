@@ -17,10 +17,10 @@ services:
       # runner 配置目录：同步目录内，只读。入口固定为 /etc/runner/config.env。
       - ./runner:/etc/runner:ro
 
-      # 业务配置：同步目录内
-      - ./config.yaml:/etc/app/config.yaml
+      # 业务配置目录：同步目录内。配置入口固定为 /etc/app/config.yaml。
+      - ./config:/etc/app
 
-      # CLIProxyAPI 默认家目录：~/.cli-proxy-api。放在配置文件同级目录，便于同步必要账号/授权文件。
+      # CLIProxyAPI 默认家目录：~/.cli-proxy-api。放在示例目录内，便于同步必要账号/授权文件。
       - ./.cli-proxy-api:/root/.cli-proxy-api
 
       # 程序本体和版本状态：不进同步目录，持久化在 Docker volume
@@ -29,4 +29,3 @@ services:
 volumes:
   app-bin:
     name: cliproxyapi-bin
-

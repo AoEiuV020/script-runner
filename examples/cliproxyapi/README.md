@@ -6,7 +6,9 @@
 
 ```text
 compose.yaml
-config.example.yaml
+config/
+  config.example.yaml
+  config.yaml
 .env.example
 .gitignore
 .cli-proxy-api/
@@ -19,7 +21,8 @@ runner/
 ```
 
 - `compose.yaml`：使用 `aoeiuv020/script-runner:latest`。
-- `config.example.yaml`：CLIProxyAPI 官方默认完整配置示例，用于复制生成本地真实配置。
+- `config/config.example.yaml`：CLIProxyAPI 官方默认完整配置示例，用于复制生成本地真实配置。
+- `config/config.yaml`：本地真实业务配置，不提交。
 - `.env.example`：环境变量模板；真实 `.env` 不提交。
 - `.cli-proxy-api/.gitkeep`：保留 CLIProxyAPI 默认家目录位置；真实账号或授权文件不提交。
 - `runner/config.env`：Runner 必填配置。
@@ -49,15 +52,16 @@ GITHUB_TOKEN=
 
 ## 业务配置
 
-`config.example.yaml` 保存官方默认完整配置示例，只作为模板提交到公开仓库。
+`config/config.example.yaml` 保存官方默认完整配置示例，只作为模板提交到公开仓库。
 
 真实业务配置可能包含 API key、代理账号、TLS 路径或其他隐私信息，应复制为本地文件后使用：
 
 ```bash
-cp config.example.yaml config.yaml
+mkdir -p config
+cp config/config.example.yaml config/config.yaml
 ```
 
-`config.yaml` 和 `config.*.yaml` 被 `.gitignore` 忽略，不应提交。Compose 默认挂载本地 `config.yaml` 到容器内 `/etc/app/config.yaml`。
+`config/config.yaml` 被 `.gitignore` 忽略，不应提交。Compose 默认将本地 `config/` 目录挂载到容器内 `/etc/app`，Runner 仍读取 `/etc/app/config.yaml`。这样宿主机替换 `config/config.yaml` 后，容器会按目录路径访问新的文件引用。
 
 ## Runner 配置
 
