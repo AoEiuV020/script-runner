@@ -1,6 +1,7 @@
 services:
   cliproxyapi:
     image: aoeiuv020/script-runner:latest
+    container_name: cliproxyapi
     restart: unless-stopped
     init: true
     env_file:
